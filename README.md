@@ -26,6 +26,6 @@ TRENUTNA VPRAŠANJA:
   - Število prijateljev glede na "starost" računa
   - Nakupi iger v posameznih obdobji (steam sale)
  
- ISKANJE OSAMELCEV: 
-  Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
+ ISKANJE OSAMELCEV:
+  - Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
   
