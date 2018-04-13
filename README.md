@@ -10,3 +10,21 @@ Podatki:
 Uporabili bomo API, ki ga ponuja Steam: https://developer.valvesoftware.com/wiki/Steam_Web_API#JSON
 Tu lahko dobimo podatko o čisto vsemu kar potrebujemo npr. o uporabniku, njegove igre, prijatelji, koliko ur je igral neko igro, ...
 Dobili bomo podatke za npr. 100.000+ uporabnikov (prijatelji naših prijateljev, in njihov prijateljev itd.).
+
+PROJEKTNI PODATKI:
+  - posameznih uporabniki
+  - posamezne igre
+  - nakupi uporabnikov
+  - dosežki v igrah za posameznega uporabnika
+  - "ban" posameznih igralcev v neki igri
+  
+TRENUTNA VPRAŠANJA:
+  - Povprečno dokončanje igre
+  - Število in vrsta Bannov v povezavi z javnimi/privatnimi profili
+  - Najmanjkrat odklenjeni dosežki za igrane igre
+  - Število prijateljev glede na "starost" računa
+  - Nakupi iger v posameznih obdobji (steam sale)
+ 
+ ISKANJE OSAMELCEV: 
+  Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
+  
