@@ -30,3 +30,4 @@ TRENUTNA VPRAŠANJA:
  ISKANJE OSAMELCEV:
   - Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
   
+  
