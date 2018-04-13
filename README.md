@@ -25,7 +25,8 @@ TRENUTNA VPRAŠANJA:
   - Najmanjkrat odklenjeni dosežki za igrane igre
   - Število prijateljev glede na "starost" računa
   - Nakupi iger v posameznih obdobji (steam sale)
- 
+  - Delitev igralcev glede na državo
+  
  ISKANJE OSAMELCEV:
   - Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
   
