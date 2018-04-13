@@ -12,7 +12,7 @@ Tu lahko dobimo podatko o čisto vsemu kar potrebujemo npr. o uporabniku, njegov
 Dobili bomo podatke za npr. 100.000+ uporabnikov (prijatelji naših prijateljev, in njihov prijateljev itd.).
 
 PROJEKTNI PODATKI:
-  - posamezn uporabnik ( odprt/zaprt profil, št. prijateljev, št. iger, statistika posamezne igre)
+  - posamezen uporabnik ( odprt/zaprt profil, št. prijateljev, št. iger, statistika posamezne igre)
   - posamezne igre ( splošni podatki in statistike igre )
   - nakupi uporabnikov ( kdaj je kupil neko igro )
   - dosežki v igrah za posameznega uporabnika
