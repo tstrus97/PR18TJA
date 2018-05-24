@@ -1,5 +1,10 @@
 from scripts.get_functions import *
+from scripts.async_req import *
 import json
+import time
+
+
+
 
 def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
     already_called.add(pid)
@@ -45,62 +50,79 @@ def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
     return player_ids
     
 
-def fill_player_summaries():
-    global api_key
-    global player_ids
-    global player_summaries
+def fill_player_summaries(player_ids, player_summaries = dict()):
     player_ids = list(player_ids)
-    for i in range(0, len(player_ids)+1, 100):
+    for i in range(100, len(player_ids)+1, 100):
         tmp_summaries = get_multiple_player_summary(player_ids[i-100:i])
         for summary in tmp_summaries:
             #summary["friends"] = get_player_friends(summary["steamid"])
             player_summaries[summary["steamid"]] = summary
-    return player_sumamries
+    return player_summaries
 
 
-def fill_player_bans():
-    global api_key
-    global player_ids
-    global players_bans
+def fill_player_bans(player_ids, player_bans = dict()):
     player_ids = list(player_ids)
-    for i in range(0, len(player_ids)+1, 100):
+    for i in range(100, len(player_ids)+1, 100):
         tmp_bans = get_multiple_player_bans(player_ids[i-100:i])
-        for summary in tmp_bans:
-            players_bans[summary["steamid"]] = summary
+        #print("bans: ")
+        #print(tmp_bans)
+        for summary in tmp_bans["players"]:
+            pass
+            player_bans[summary["SteamId"]] = summary
     return player_bans
-            
-            
+                        
 
-def fill_player_friends():
-    global api_key
-    global player_friends
-    global player_ids
-    global players_summaries
-    for player in player_ids.keys():
-        player_friends[player] = get_player_friends(player)
-        print(len(player_friends))
-    print("done")
+
+def fill_player_friends(player_ids, player_friends = dict(), api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
+    urls = []
+    odered_ids = sorted(player_ids)
+    for i in range(len(odered_ids)):
+        urls += ["http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + api_key + "&steamid=" + str(odered_ids[i]) + "&relationship=friend"]
+    responses = async_request(urls)
+    for i in range(len(odered_ids)):
+        try:
+            player_friends[odered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["friendslist"]["friends"]
+        except:
+            player_friends[odered_ids[i]] = []
+    return player_friends
     
     
-def fill_player_games():
-    global api_key
-    global player_games
-    for player_id in player_ids:
-        player_games[player_id] = get_owned_games(player_id)
+def fill_player_games(player_ids, player_games = dict(), api_key = "651624DDEE8476FED7FCA5264702440A"):
+    urls = []
+    odered_ids = sorted(player_ids)
+    for i in range(len(odered_ids)):
+        urls += ["http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + api_key + "&steamid=" + str(odered_ids[i])]
+    responses = async_request(urls)
+    #print(urls[0])
+    print(responses[0])
+    for i in range(len(odered_ids)):
+        try:
+            player_games[odered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["response"]
+        except:
+            player_games[odered_ids[i]] = []
+    return player_games
         
-        
-def fill_player_achievements():
-    global api_key
-    global player_achievements
-    for player_id in player_ids:
+
+def fill_player_achievements(player_ids, player_games, player_achievements = dict(), api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
+    urls = []
+    sorted_ids = sorted(player_ids)
+    for player_id in sorted_ids:
         if len(player_games[player_id]) == 0:
             player_achievements[player_id] = dict()
         else:
             for game in player_games[player_id]['games']:
                 gameid = game["appid"]
-                gamedata = get_achievements_for_player_game(player_id, gameid)
-                if player_id in player_achievements:
-                    player_achievements[player_id]
-                else:
-                    player_achievements[player_id] = dict()
-                    player_achievements[player_id][gameid] = gamedata
+                urls+=["http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + str(gameid) + "&key=" + api_key + "&steamid=" + str(player_id)]
+    print("urls created")
+    responses = async_request(urls)
+    i = 0;
+    for player_id in sorted_ids:
+        if len(player_games[player_id]) == 0:
+            player_achievements[player_id] = dict()
+        else:
+            player_achievements[player_id] = dict()
+            for game in player_games[player_id]['games']:
+                gameid = game["appid"]
+                player_achievements[player_id][gameid] = game
+                
+    return player_achievements

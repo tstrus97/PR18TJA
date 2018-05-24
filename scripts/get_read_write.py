@@ -5,12 +5,13 @@ import time
 #--------------------------------------------------------- REQUEST FROM API -----------------------------------------------------
 
 def request_all_from_api(num = 100):
-    api_fill_player_ids(num)
-    api_fill_player_summaries()
-    api_fill_player_friends()
-    api_fill_player_games()
-    api_fill_player_achivements()
-    api_fill_player_bans()
+    ids = api_fill_player_ids(num)
+    sms = api_fill_player_summaries(ids)
+    frn = api_fill_player_friends(ids)
+    gms = api_fill_player_games(ids)
+    ach = api_fill_player_achivements(ids, gms)
+    bns = api_fill_player_bans(ids)
+    return(ids, sms, frn, gms, ach, bns)
 
     
 def api_fill_player_ids(num = 100, my_id = "76561198101569818", player_ids = set()):
@@ -22,52 +23,63 @@ def api_fill_player_ids(num = 100, my_id = "76561198101569818", player_ids = set
     return data
 
 
-def api_fill_player_summaries(player_summaries = dict()):
+def api_fill_player_summaries(player_ids, player_summaries = dict()):
     print("INFO: requesting summaries")
-    data = fill_player_summaries(player_summaries)
+    start_time = time.time()
+    data = fill_player_summaries(player_ids, player_summaries)
     print("INFO: requesting summaries finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
     
     
-def api_fill_player_friends(player_friends = dict()):
+def api_fill_player_friends(player_ids, player_friends = dict()):
     print("INFO: requesting friends")
-    data = fill_player_friends()
+    start_time = time.time()
+    data = fill_player_friends(player_ids)
     print("INFO: requesting friends finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
 
-def api_fill_player_games(player_games = dict()):
+def api_fill_player_games(player_ids, player_games = dict()):
     print("INFO: requesting games")
-    data = fill_player_games()
+    start_time = time.time()
+    data = fill_player_games(player_ids)
     print("INFO: requesting games finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
 
-def api_fill_player_achievements(player_achievements = dict()):
+def api_fill_player_achievements(player_ids, player_games, player_achievements = dict()):
     print("INFO: requesting achievements")
-    data = fill_player_achievements()
+    start_time = time.time()
+    data = fill_player_achievements(player_ids, player_games)
     print("INFO: requesting achievements finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
     
 
-def api_fill_player_bans(player_bans = dict()):
+def api_fill_player_bans(player_ids, player_bans = dict()):
     print("INFO: requesting bans")
-    data = fill_player_bans()
+    start_time = time.time()
+    data = fill_player_bans(player_ids)
     print("INFO: requesting bans finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
 #--------------------------------------------------------- REQUEST FROM FILE -----------------------------------------------------
 
-def request_all_from_file():
-    file_fill_player_ids()
-    file_fill_player_summaries()
-    file_fill_player_friends()
-    file_fill_player_games()
-    file_fill_player_achievements()
-    file_fill_player_bans()
+def read_all_from_file():
+    ids = read_player_ids()
+    sms = read_player_summaries()
+    frn = read_player_friends()
+    gms = read_player_games()
+    ach = read_player_achievements()
+    bns = read_player_bans()
+    return(ids, sms, frn, gms, ach, bns)
     
 
-def file_fill_player_ids():
+def read_player_ids():
     print("INFO: reading ids")
     with open("data/pid_set.json", "r") as fp:
         data = (json.load(fp))
@@ -75,7 +87,7 @@ def file_fill_player_ids():
     return data
     
     
-def file_fill_player_summaries():
+def read_player_summaries():
     print("INFO: reading summaries")
     with open("data/player_summaries.json", "r") as fp:
         data = json.load(fp)
@@ -83,7 +95,7 @@ def file_fill_player_summaries():
     return data
 
     
-def file_fill_player_friends():
+def read_player_friends():
     print("INFO: reading friends")
     with open("data/player_friends.json", "r") as fp:
         data = json.load(fp)
@@ -91,7 +103,7 @@ def file_fill_player_friends():
     return data
         
     
-def file_fill_player_games():
+def read_player_games():
     print("INFO: reading games")
     with open("data/player_games.json", "r") as fp:
         data = json.load(fp)
@@ -99,7 +111,7 @@ def file_fill_player_games():
     return data
 
     
-def file_fill_player_achievements():
+def read_player_achievements():
     print("INFO: reading achievements")
     with open("data/player_achievements.json", "r") as fp:
         data = json.load(fp)
@@ -107,7 +119,7 @@ def file_fill_player_achievements():
     return data
 
         
-def file_fill_player_bans():
+def read_player_bans():
     print("INFO: reading bans")
     with open("data/player_bans.json", "r") as fp:
         data = json.load(fp)
@@ -136,7 +148,7 @@ def write_player_ids(player_ids):
 def write_player_summaries(player_summaries):
     print("INFO: writing summaries")
     with open("data/player_summaries.json", "w") as fp:
-        json.dump(players_summaries, fp)
+        json.dump(player_summaries, fp)
     print("INFO: finised writing summaries")
     
         

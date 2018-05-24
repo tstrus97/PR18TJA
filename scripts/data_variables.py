@@ -1,4 +1,5 @@
 api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"
+api_key2 = "651624DDEE8476FED7FCA5264702440A"
 player_ids = set()
 player_summaries = dict()
 player_friends = dict()
