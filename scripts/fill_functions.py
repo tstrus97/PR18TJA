@@ -1,17 +1,17 @@
 from scripts.get_functions import *
 import json
 
-def fill_player_ids_rec(id, player_ids, num = 1000, already_called = set()):
-    already_called.add(id)
-    print("recursive call of id: " + id + "  len: " + str(len(player_ids)))
+def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
+    already_called.add(pid)
+    print("recursive call of id: " + str(pid) + "  len: " + str(len(player_ids)))
     try:
-        if get_player_summary(id)["profilestate"] != 1:
+        if get_player_summary(pid)["profilestate"] != 1:
             #print("not public")
             return None
     except KeyError:
         #print("not public key error")
         return None
-    data = get_player_friends(id)
+    data = get_player_friends(pid)
     tmp_id = set()
     for friend in data:
         if len(player_ids) >= num:
@@ -41,20 +41,21 @@ def fill_player_ids_rec(id, player_ids, num = 1000, already_called = set()):
             print("enough friends")
             break
         if playerid not in already_called:
-            fill_player_ids_rec(playerid, num, already_called)
+            fill_player_ids_rec(playerid, player_ids, num, already_called)
     return player_ids
     
 
 def fill_player_summaries():
     global api_key
     global player_ids
-    global players_summaries
+    global player_summaries
     player_ids = list(player_ids)
     for i in range(0, len(player_ids)+1, 100):
         tmp_summaries = get_multiple_player_summary(player_ids[i-100:i])
         for summary in tmp_summaries:
             #summary["friends"] = get_player_friends(summary["steamid"])
-            players_summaries[summary["steamid"]] = summary
+            player_summaries[summary["steamid"]] = summary
+    return player_sumamries
 
 
 def fill_player_bans():
@@ -66,6 +67,7 @@ def fill_player_bans():
         tmp_bans = get_multiple_player_bans(player_ids[i-100:i])
         for summary in tmp_bans:
             players_bans[summary["steamid"]] = summary
+    return player_bans
             
             
 
