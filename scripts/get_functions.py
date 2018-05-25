@@ -52,3 +52,16 @@ def get_achievements_for_player_game(pid, appid,  api_key = "5F5DD2FA8A6C8646FCF
     data = requests.get( "http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + str(appid) + "&key=" + api_key + "&steamid=" + str(pid)).json()
     return data
 
+
+def get_game_list(player_games):
+    game_id_list = set()
+    for player, data in player_games.items():
+        try:
+            for game in data["games"]:
+                game_id_list.add(game["appid"])
+        except:
+            pass
+    return sorted(list(game_id_list))
+
+
+

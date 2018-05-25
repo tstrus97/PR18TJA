@@ -11,7 +11,8 @@ def request_all_from_api(num = 100):
     gms = api_fill_player_games(ids)
     ach = api_fill_player_achivements(ids, gms)
     bns = api_fill_player_bans(ids)
-    return(ids, sms, frn, gms, ach, bns)
+    ggs = api_fill_global_game_stats(gms)
+    return(ids, sms, frn, gms, ach, bns, ggs)
 
     
 def api_fill_player_ids(num = 100, my_id = "76561198101569818", player_ids = set()):
@@ -67,6 +68,16 @@ def api_fill_player_bans(player_ids, player_bans = dict()):
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
+
+def api_fill_global_game_stats(player_games, global_game_stats = dict()):
+    print("INFO: requesting global game stats")
+    start_time = time.time()
+    game_ids = get_game_list(player_games)
+    data = fill_global_game_stats(game_ids, global_game_stats)
+    print("INFO: requesting global game stats finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
+    return data
+
 #--------------------------------------------------------- REQUEST FROM FILE -----------------------------------------------------
 
 def read_all_from_file():
@@ -76,7 +87,8 @@ def read_all_from_file():
     gms = read_player_games()
     ach = read_player_achievements()
     bns = read_player_bans()
-    return(ids, sms, frn, gms, ach, bns)
+    ggs = read_global_game_stats()
+    return(ids, sms, frn, gms, ach, bns, ggs)
     
 
 def read_player_ids():
@@ -124,6 +136,14 @@ def read_player_bans():
     with open("data/player_bans.json", "r") as fp:
         data = json.load(fp)
     print("INFO: reading bans finished")
+    return data
+
+
+def read_global_game_stats():
+    print("INFO: reading global game stats")
+    with open("data/global_game_stats.json", "r") as fp:
+        data = json.load(fp)
+    print("INFO: reading global game stats finished")
     return data
 
 
@@ -177,3 +197,9 @@ def write_player_bans(player_bans):
         json.dump(player_bans, fp)
     print("INFO: finised writing bans")
     
+
+def write_global_game_stats(player_bans):
+    print("INFO: writing global_game_stats")
+    with open("data/global_game_stats.json", "w") as fp:
+        json.dump(player_bans, fp)
+    print("INFO: finised writing global game stats")
