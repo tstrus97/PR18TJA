@@ -6,4 +6,5 @@ player_friends = dict()
 player_games = dict()
 player_bans = dict()
 player_achievements = dict()
+global_games_stats = dict()
 my_id = "76561198101569818"

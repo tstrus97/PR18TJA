@@ -1,7 +1,6 @@
 from scripts.get_functions import *
 from scripts.async_req import *
 import json
-import time
 
 
 
@@ -123,6 +122,19 @@ def fill_player_achievements(player_ids, player_games, player_achievements = dic
             player_achievements[player_id] = dict()
             for game in player_games[player_id]['games']:
                 gameid = game["appid"]
-                player_achievements[player_id][gameid] = game
+                player_achievements[player_id][gameid] = responses[i]
+                i+=1
                 
     return player_achievements
+
+def fill_global_game_stats(game_ids, global_game_stats = dict()):
+    urls = []
+    for appid in game_ids:
+        urls+= ["http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid="+str(appid)]
+    responses = async_request(urls)
+    for i in range(len(responses)):
+        try:
+            global_game_stats[game_ids[i]] = json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\"))["achievementpercentages"]["achievements"]
+        except:
+            pass
+    return global_game_stats
