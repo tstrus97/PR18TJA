@@ -9,11 +9,11 @@ def request_all_from_api(num = 100):
     sms = api_fill_player_summaries(ids)
     frn = api_fill_player_friends(ids)
     gms = api_fill_player_games(ids)
-    ach = api_fill_player_achivements(ids, gms)
+    ach = api_fill_player_achievements(ids, gms)
     bns = api_fill_player_bans(ids)
     ggs = api_fill_global_game_stats(gms)
-    des = api_fill_game_names(gms)
-    return(ids, sms, frn, gms, ach, bns, ggs, des)
+    gns = api_fill_game_names(gms)
+    return(ids, sms, frn, gms, ach, bns, ggs, gns)
 
     
 def api_fill_player_ids(num = 100, my_id = "76561198101569818", player_ids = set()):

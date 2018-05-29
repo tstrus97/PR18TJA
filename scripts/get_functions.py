@@ -18,7 +18,7 @@ def get_multiple_player_summary (ids, api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E
     return data["response"]["players"]
 
 
-def get_multiple_player_bans (ids, api_key = "651624DDEE8476FED7FCA5264702440A"):
+def get_multiple_player_bans (ids, api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
     request_str = "http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key="+api_key+"&steamids="
     request_str += ",".join(ids)
     #print(request_str)
@@ -27,6 +27,7 @@ def get_multiple_player_bans (ids, api_key = "651624DDEE8476FED7FCA5264702440A")
         data = requests.get(request_str).json()
         #print(data)
     except:
+        print("request failed")
         #print(data)
         return None
     return data
