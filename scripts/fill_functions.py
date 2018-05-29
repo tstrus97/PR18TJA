@@ -7,7 +7,7 @@ import json
 
 def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
     already_called.add(pid)
-    print("recursive call of id: " + str(pid) + "  len: " + str(len(player_ids)))
+    #print("recursive call of id: " + str(pid) + "  len: " + str(len(player_ids)))
     try:
         if get_player_summary(pid)["profilestate"] != 1:
             #print("not public")
@@ -19,13 +19,13 @@ def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
     tmp_id = set()
     for friend in data:
         if len(player_ids) >= num:
-            print("enough friends")
+            #print("enough friends")
             break
         tmp_id.add(friend["steamid"])
         player_ids.add(friend["steamid"])
         #print("len: "+ str(len(player_ids)))
         
-    print("added my friends" + "  len: " + str(len(player_ids)))
+    #print("added my friends" + "  len: " + str(len(player_ids)))
     
     for playerid in tmp_id:
         if len(player_ids) >= num:
@@ -33,12 +33,12 @@ def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
         data = get_player_friends(playerid)
         for fof in data:
             if len(player_ids) >= num:
-                print("enough friends")
+                #print("enough friends")
                 break
             player_ids.add(fof["steamid"])
         #print("added friends of friend")
             
-    print("added friends of friends" + "  len: " + str(len(player_ids)))
+    #print("added friends of friends" + "  len: " + str(len(player_ids)))
     
     for playerid in tmp_id:
         if len(player_ids) >= num:
@@ -66,7 +66,6 @@ def fill_player_bans(player_ids, player_bans = dict()):
         #print("bans: ")
         #print(tmp_bans)
         for summary in tmp_bans["players"]:
-            pass
             player_bans[summary["SteamId"]] = summary
     return player_bans
                         
@@ -93,7 +92,7 @@ def fill_player_games(player_ids, player_games = dict(), api_key = "651624DDEE84
         urls += ["http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + api_key + "&steamid=" + str(odered_ids[i])]
     responses = async_request(urls)
     #print(urls[0])
-    print(responses[0])
+    #print(responses[0])
     for i in range(len(odered_ids)):
         try:
             player_games[odered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["response"]
@@ -112,7 +111,7 @@ def fill_player_achievements(player_ids, player_games, player_achievements = dic
             for game in player_games[player_id]['games']:
                 gameid = game["appid"]
                 urls+=["http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=" + str(gameid) + "&key=" + api_key + "&steamid=" + str(player_id)]
-    print("urls created")
+    #print("urls created")
     responses = async_request(urls)
     i = 0;
     for player_id in sorted_ids:
@@ -138,3 +137,10 @@ def fill_global_game_stats(game_ids, global_game_stats = dict()):
         except:
             pass
     return global_game_stats
+
+def fill_game_names(game_ids, game_names = dict()):
+    data = get_game_names()
+    for info in data["applist"]["apps"]["app"]:
+        id, name = info.values()
+        game_names[id] = name
+    return game_names

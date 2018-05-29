@@ -9,10 +9,11 @@ def request_all_from_api(num = 100):
     sms = api_fill_player_summaries(ids)
     frn = api_fill_player_friends(ids)
     gms = api_fill_player_games(ids)
-    ach = api_fill_player_achivements(ids, gms)
+    ach = api_fill_player_achievements(ids, gms)
     bns = api_fill_player_bans(ids)
     ggs = api_fill_global_game_stats(gms)
-    return(ids, sms, frn, gms, ach, bns, ggs)
+    gns = api_fill_game_names(gms)
+    return(ids, sms, frn, gms, ach, bns, ggs, gns)
 
     
 def api_fill_player_ids(num = 100, my_id = "76561198101569818", player_ids = set()):
@@ -78,6 +79,15 @@ def api_fill_global_game_stats(player_games, global_game_stats = dict()):
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
+def api_fill_game_names(player_games, game_names = dict()):
+    print("INFO: requesting game names")
+    start_time = time.time()
+    game_ids = get_game_list(player_games)
+    data = fill_game_names(game_ids, game_names)
+    print("INFO: requesting game names finished")
+    print("Time needed: {} seconds ".format((time.time() - start_time)))
+    return data
+
 #--------------------------------------------------------- REQUEST FROM FILE -----------------------------------------------------
 
 def read_all_from_file():
@@ -88,7 +98,8 @@ def read_all_from_file():
     ach = read_player_achievements()
     bns = read_player_bans()
     ggs = read_global_game_stats()
-    return(ids, sms, frn, gms, ach, bns, ggs)
+    gns = read_game_names()
+    return(ids, sms, frn, gms, ach, bns, ggs, gns)
     
 
 def read_player_ids():
@@ -147,15 +158,25 @@ def read_global_game_stats():
     return data
 
 
+def read_game_names():
+    print("INFO: reading game names")
+    with open("data/game_names.json", "r") as fp:
+        data = json.load(fp)
+    print("INFO: reading game names finished")
+    return data
+
+
 #--------------------------------------------------------- WRITE TO FILES -----------------------------------------------------
  
-def write_all_to_file():
-    write_player_ids()
-    write_player_summaries()
-    write_player_friends()
-    write_player_games()
-    write_player_achivements()
-    write_player_bans()
+def write_all_to_file(ids, sms, frn, gms, ach, bns, ggs, gns):
+    write_player_ids(ids)
+    write_player_summaries(sms)
+    write_player_friends(frn)
+    write_player_games(gms)
+    write_player_achivements(ach)
+    write_player_bans(bns)
+    write_global_game_stats(ggs)
+    write_game_names(gns)
     
     
 def write_player_ids(player_ids):
@@ -197,9 +218,14 @@ def write_player_bans(player_bans):
         json.dump(player_bans, fp)
     print("INFO: finised writing bans")
     
-
 def write_global_game_stats(player_bans):
     print("INFO: writing global_game_stats")
     with open("data/global_game_stats.json", "w") as fp:
         json.dump(player_bans, fp)
     print("INFO: finised writing global game stats")
+
+def write_game_names(game_names):
+    print("INFO: writing game names")
+    with open("data/game_names.json", "w") as fp:
+        json.dump(game_names, fp)
+    print("INFO: finised writing game names")
