@@ -138,3 +138,10 @@ def fill_global_game_stats(game_ids, global_game_stats = dict()):
         except:
             pass
     return global_game_stats
+
+def fill_game_names(game_ids, game_names = dict()):
+    data = get_game_names()
+    for info in data["applist"]["apps"]["app"]:
+        id, name = info.values()
+        game_names[id] = name
+    return game_names

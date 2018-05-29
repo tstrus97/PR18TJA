@@ -64,4 +64,11 @@ def get_game_list(player_games):
     return sorted(list(game_id_list))
 
 
+def get_game_names():
+    try:
+       data = requests.get("http://api.steampowered.com/ISteamApps/GetAppList/v0001/").json()
+    except:
+        return dict()
+    return data
+
 
