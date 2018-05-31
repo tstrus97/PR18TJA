@@ -3,8 +3,6 @@ from scripts.async_req import *
 import json
 
 
-
-
 def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
     already_called.add(pid)
     #print("recursive call of id: " + str(pid) + "  len: " + str(len(player_ids)))
@@ -65,8 +63,11 @@ def fill_player_bans(player_ids, player_bans = dict()):
         tmp_bans = get_multiple_player_bans(player_ids[i-100:i])
         #print("bans: ")
         #print(tmp_bans)
-        for summary in tmp_bans["players"]:
-            player_bans[summary["SteamId"]] = summary
+        try:
+            for summary in tmp_bans["players"]:
+                player_bans[summary["SteamId"]] = summary
+        except:
+            pass
     return player_bans
                         
 
@@ -85,7 +86,7 @@ def fill_player_friends(player_ids, player_friends = dict(), api_key = "5F5DD2FA
     return player_friends
     
     
-def fill_player_games(player_ids, player_games = dict(), api_key = "651624DDEE8476FED7FCA5264702440A"):
+def fill_player_games(player_ids, player_games = dict(), api_key = "EEA36ABA0BB06BBFC90ECF96B503007E"):
     urls = []
     odered_ids = sorted(player_ids)
     for i in range(len(odered_ids)):
@@ -138,7 +139,7 @@ def fill_global_game_stats(game_ids, global_game_stats = dict()):
             pass
     return global_game_stats
 
-def fill_game_names(game_ids, game_names = dict()):
+def fill_game_names(game_names = dict()):
     data = get_game_names()
     for info in data["applist"]["apps"]["app"]:
         id, name = info.values()

@@ -28,43 +28,84 @@ def api_fill_player_ids(num = 100, my_id = "76561198101569818", player_ids = set
 def api_fill_player_summaries(player_ids, player_summaries = dict()):
     print("INFO: requesting summaries")
     start_time = time.time()
-    data = fill_player_summaries(player_ids, player_summaries)
+    pids = set()
+    for pid in player_ids:
+        if pid not in player_summaries:
+            pids.add(pid)
+        else:
+            if len(player_summaries[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+                pids.add(pid)
+    print("INFO: requesting:",len(pids))
+    data = fill_player_summaries(pids, player_summaries)
     print("INFO: requesting summaries finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
     
     
-def api_fill_player_friends(player_ids, player_friends = dict()):
+def api_fill_player_friends(player_ids, player_summaries, player_friends = dict()):
     print("INFO: requesting friends")
     start_time = time.time()
-    data = fill_player_friends(player_ids)
+    pids = set()
+    for pid in player_ids:
+        if pid not in player_friends:
+            pids.add(pid)
+        else:
+            if len(player_friends[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+                pids.add(pid)
+    print("INFO: requesting:",len(pids))
+    data = fill_player_friends(pids, player_friends)
     print("INFO: requesting friends finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
 
-def api_fill_player_games(player_ids, player_games = dict()):
+def api_fill_player_games(player_ids, player_summaries, player_games = dict()):
     print("INFO: requesting games")
     start_time = time.time()
-    data = fill_player_games(player_ids)
+    pids = set()
+    for pid in player_ids:
+        if pid not in player_games:
+            pids.add(pid)
+        else:
+            if len(player_games[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+                pids.add(pid)
+    print("INFO: requesting:",len(pids))
+    data = fill_player_games(pids, player_games)
     print("INFO: requesting games finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
 
-def api_fill_player_achievements(player_ids, player_games, player_achievements = dict()):
+def api_fill_player_achievements(player_ids, player_games, player_summaries, player_achievements = dict()):
     print("INFO: requesting achievements")
     start_time = time.time()
-    data = fill_player_achievements(player_ids, player_games)
+    pids = set()
+    for pid in player_ids:
+        if pid not in player_achievements:
+            pids.add(pid)
+        else:
+            if len(player_achievements[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+                pids.add(pid)
+    print("INFO: requesting:",len(pids))
+    data = fill_player_games(pids, player_games)
+    data = fill_player_achievements(pids, player_games, player_achievements)
     print("INFO: requesting achievements finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
     
 
-def api_fill_player_bans(player_ids, player_bans = dict()):
+def api_fill_player_bans(player_ids, player_summaries, player_bans = dict()):
     print("INFO: requesting bans")
     start_time = time.time()
-    data = fill_player_bans(player_ids)
+    pids = set()
+    for pid in player_ids:
+        if pid not in player_bans:
+            pids.add(pid)
+        else:
+            if len(player_bans[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+                pids.add(pid)
+    print("INFO: requesting:",len(pids))
+    data = fill_player_bans(pids)
     print("INFO: requesting bans finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
@@ -74,16 +115,23 @@ def api_fill_global_game_stats(player_games, global_game_stats = dict()):
     print("INFO: requesting global game stats")
     start_time = time.time()
     game_ids = get_game_list(player_games)
-    data = fill_global_game_stats(game_ids, global_game_stats)
+    gids = set()
+    for gid in game_ids:
+        if gid not in global_game_stats:
+            gids.add(gid)
+        else:
+            if len(global_game_stats[gid]) == 0:
+                gids.add(gid)
+    print("INFO: requesting:",len(gids))
+    data = fill_global_game_stats(gids, global_game_stats)
     print("INFO: requesting global game stats finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
 
-def api_fill_game_names(player_games, game_names = dict()):
+def api_fill_game_names(game_names = dict()):
     print("INFO: requesting game names")
     start_time = time.time()
-    game_ids = get_game_list(player_games)
-    data = fill_game_names(game_ids, game_names)
+    data = fill_game_names(game_names)
     print("INFO: requesting game names finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
@@ -173,7 +221,7 @@ def write_all_to_file(ids, sms, frn, gms, ach, bns, ggs, gns):
     write_player_summaries(sms)
     write_player_friends(frn)
     write_player_games(gms)
-    write_player_achivements(ach)
+    write_player_achievements(ach)
     write_player_bans(bns)
     write_global_game_stats(ggs)
     write_game_names(gns)
