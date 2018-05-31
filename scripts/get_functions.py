@@ -58,7 +58,7 @@ def get_game_list(player_games):
     for player, data in player_games.items():
         try:
             for game in data["games"]:
-                game_id_list.add(game["appid"])
+                game_id_list.add(str(game["appid"]))
         except:
             pass
     return sorted(list(game_id_list))

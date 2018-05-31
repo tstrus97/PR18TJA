@@ -19,3 +19,5 @@ http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=EEA36ABA0BB0
 GetPlayerBans
 http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=EEA36ABA0BB06BBFC90ECF96B503007E&steamids=76561198101569818
 
+
+http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=220&key=EEA36ABA0BB06BBFC90ECF96B503007E&steamid=76561198101569818

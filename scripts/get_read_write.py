@@ -82,13 +82,14 @@ def api_fill_player_achievements(player_ids, player_games, player_summaries, pla
     pids = set()
     for pid in player_ids:
         if pid not in player_achievements:
-            pids.add(pid)
+            if len(player_games[pid]) > 0:
+                pids.add(pid)
         else:
-            if len(player_achievements[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+            if len(player_achievements[pid]) != len(player_games[pid]) and (player_summaries[pid]["communityvisibilitystate"] == 3):
                 pids.add(pid)
     print("INFO: requesting:",len(pids))
     data = fill_player_games(pids, player_games)
-    data = fill_player_achievements(pids, player_games, player_achievements)
+    data = fill_player_achievements(sorted(pids)[0:10], player_games, player_achievements)
     print("INFO: requesting achievements finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
@@ -102,10 +103,10 @@ def api_fill_player_bans(player_ids, player_summaries, player_bans = dict()):
         if pid not in player_bans:
             pids.add(pid)
         else:
-            if len(player_bans[pid]) == 0 and (player_summaries[pid]["communityvisibilitystate"] == 3):
+            if len(player_bans[pid]) == 0:
                 pids.add(pid)
     print("INFO: requesting:",len(pids))
-    data = fill_player_bans(pids)
+    data = fill_player_bans(sorted(pids)[0:1000], player_bans)
     print("INFO: requesting bans finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data
@@ -117,13 +118,15 @@ def api_fill_global_game_stats(player_games, global_game_stats = dict()):
     game_ids = get_game_list(player_games)
     gids = set()
     for gid in game_ids:
-        if gid not in global_game_stats:
+        gid = str(gid)
+        if gid not in global_game_stats.keys():
             gids.add(gid)
+            print("not here")
         else:
             if len(global_game_stats[gid]) == 0:
                 gids.add(gid)
     print("INFO: requesting:",len(gids))
-    data = fill_global_game_stats(gids, global_game_stats)
+    data = fill_global_game_stats(sorted(gids)[1:1000], global_game_stats)
     print("INFO: requesting global game stats finished")
     print("Time needed: {} seconds ".format((time.time() - start_time)))
     return data

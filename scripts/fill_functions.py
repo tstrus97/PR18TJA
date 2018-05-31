@@ -74,35 +74,37 @@ def fill_player_bans(player_ids, player_bans = dict()):
 
 def fill_player_friends(player_ids, player_friends = dict(), api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
     urls = []
-    odered_ids = sorted(player_ids)
-    for i in range(len(odered_ids)):
-        urls += ["http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + api_key + "&steamid=" + str(odered_ids[i]) + "&relationship=friend"]
+    ordered_ids = sorted(player_ids)
+    for i in range(len(ordered_ids)):
+        urls += ["http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + api_key + "&steamid=" + str(ordered_ids[i]) + "&relationship=friend"]
     responses = async_request(urls)
-    for i in range(len(odered_ids)):
+    for i in range(len(ordered_ids)):
         try:
-            player_friends[odered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["friendslist"]["friends"]
+            player_friends[ordered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["friendslist"]["friends"]
         except:
-            player_friends[odered_ids[i]] = []
+            player_friends[ordered_ids[i]] = []
     return player_friends
     
     
 def fill_player_games(player_ids, player_games = dict(), api_key = "EEA36ABA0BB06BBFC90ECF96B503007E"):
     urls = []
-    odered_ids = sorted(player_ids)
-    for i in range(len(odered_ids)):
-        urls += ["http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + api_key + "&steamid=" + str(odered_ids[i])]
+    ordered_ids = sorted(player_ids)
+    for i in range(len(ordered_ids)):
+        urls += ["http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=" + api_key + "&steamid=" + str(ordered_ids[i])]
     responses = async_request(urls)
     #print(urls[0])
     #print(responses[0])
-    for i in range(len(odered_ids)):
+    for i in range(len(ordered_ids)):
         try:
-            player_games[odered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["response"]
+            data = json.loads(str(responses[i]).strip("b").strip("'"))["response"]
+            if len(data) > len(player_games[ordered_ids[i]]):
+                player_games[ordered_ids[i]] = data
         except:
-            player_games[odered_ids[i]] = []
+            player_games[odrered_ids[i]] = []
     return player_games
         
 
-def fill_player_achievements(player_ids, player_games, player_achievements = dict(), api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
+def fill_player_achievements(player_ids, player_games, player_achievements = dict(), api_key = "EEA36ABA0BB06BBFC90ECF96B503007E"):
     urls = []
     sorted_ids = sorted(player_ids)
     for player_id in sorted_ids:
@@ -122,7 +124,9 @@ def fill_player_achievements(player_ids, player_games, player_achievements = dic
             player_achievements[player_id] = dict()
             for game in player_games[player_id]['games']:
                 gameid = game["appid"]
-                player_achievements[player_id][gameid] = responses[i]
+                data =  json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\").replace("\\\\\"","\\\""))
+                if len(data) > 0:
+                     player_achievements[player_id][gameid] = data
                 i+=1
                 
     return player_achievements
@@ -134,8 +138,10 @@ def fill_global_game_stats(game_ids, global_game_stats = dict()):
     responses = async_request(urls)
     for i in range(len(responses)):
         try:
-            global_game_stats[game_ids[i]] = json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\"))["achievementpercentages"]["achievements"]
-        except:
+            global_game_stats[game_ids[i]] = json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\").replace("\\\\\"","\\\""))["achievementpercentages"]
+        except Exception as e :
+            print(e)
+            print(str(responses[i]).strip("b").strip("'"))
             pass
     return global_game_stats
 
@@ -145,3 +151,11 @@ def fill_game_names(game_names = dict()):
         id, name = info.values()
         game_names[id] = name
     return game_names
+
+
+def filled_p(var):
+    filled = 0;
+    for data in var.values():
+        if len(data) != 0:
+            filled += 1
+    print("Currently:", filled, "out of", len(var))
