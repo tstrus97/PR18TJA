@@ -24,7 +24,7 @@ def get_multiple_player_bans (ids, api_key = "EEA36ABA0BB06BBFC90ECF96B503007E")
     #print(request_str)
     data = dict()
     try:
-        data = requests.get(request_str).json()
+        data = requests.get(request_str).json()["players"]
         #print(data)
     except:
         #print(data)
@@ -32,7 +32,7 @@ def get_multiple_player_bans (ids, api_key = "EEA36ABA0BB06BBFC90ECF96B503007E")
     return data
 
 
-def get_player_friends(pid, api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
+def get_player_friends(pid, api_key = "651624DDEE8476FED7FCA5264702440A"):
     try:
         data = requests.get( "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=" + api_key + "&steamid=" + str(pid) + "&relationship=friend").json()["friendslist"]["friends"]
     except KeyError:

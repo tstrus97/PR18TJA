@@ -18,7 +18,7 @@ def async_request(urls):
         tasks = []
         # Fetch all responses within one Client session,
         # keep connection alive for all requests.
-        sem = asyncio.Semaphore(1000)
+        sem = asyncio.Semaphore(500)
         async with ClientSession() as session:
             for url in urls:
                 task = asyncio.ensure_future(bound_fetch(sem, url, session))

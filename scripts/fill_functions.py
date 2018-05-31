@@ -5,7 +5,7 @@ import json
 
 def fill_player_ids_rec(pid, player_ids, num = 1000, already_called = set()):
     already_called.add(pid)
-    #print("recursive call of id: " + str(pid) + "  len: " + str(len(player_ids)))
+    print("recursive call of id: " + str(pid) + "  len: " + str(len(player_ids)))
     try:
         if get_player_summary(pid)["profilestate"] != 1:
             #print("not public")
@@ -53,7 +53,39 @@ def fill_player_summaries(player_ids, player_summaries = dict()):
         tmp_summaries = get_multiple_player_summary(player_ids[i-100:i])
         for summary in tmp_summaries:
             #summary["friends"] = get_player_friends(summary["steamid"])
-            player_summaries[summary["steamid"]] = summary
+            compressed = dict()
+            try:
+                compressed["cvs"]= summary["communityvisibilitystate"]
+            except:
+                pass
+            try:
+                compressed["cntry"]= summary["loccountrycode"]
+            except:
+                pass
+            try:
+                compressed["name"]= summary["personaname"]
+            except:
+                pass
+            try:
+                compressed["pcid"]= summary["primaryclanid"]
+            except:
+                pass
+            try:
+                compressed["ps"]= summary["profilestate"]
+            except:
+                pass
+            try:
+                compressed["rn"]= summary["realname"]
+            except:
+                pass
+            try:
+                compressed["tc"]= summary["timecreated"]
+            except:
+                pass
+            try:
+                player_summaries[summary["steamid"]] = compressed
+            except:
+                pass
     return player_summaries
 
 
@@ -64,8 +96,16 @@ def fill_player_bans(player_ids, player_bans = dict()):
         #print("bans: ")
         #print(tmp_bans)
         try:
-            for summary in tmp_bans["players"]:
-                player_bans[summary["SteamId"]] = summary
+            for ban in tmp_bans:
+                compressed  = dict()
+                compressed["id"] = ban["SteamId"]
+                compressed["cb"] = ban["CommunityBanned"]
+                compressed["vacb"] = ban["VACBanned"]
+                compressed["novacb"] = ban["NumberOfVACBans"]
+                compressed["dslb"] = ban["DaysSinceLastBan"]
+                compressed["nogb"] = ban["NumberOfGameBans"]
+                compressed["eb"] = ban["EconomyBan"]
+                player_bans[ban["SteamId"]] = compressed
         except:
             pass
     return player_bans
@@ -80,13 +120,28 @@ def fill_player_friends(player_ids, player_friends = dict(), api_key = "5F5DD2FA
     responses = async_request(urls)
     for i in range(len(ordered_ids)):
         try:
-            player_friends[ordered_ids[i]] =  json.loads(str(responses[i]).strip("b").strip("'"))["friendslist"]["friends"]
-        except:
-            player_friends[ordered_ids[i]] = []
+            compressed = dict()
+            data  =  json.loads(str(responses[i]).strip("b").strip("'"))["friendslist"]["friends"]
+            frnds = []
+            for frnd in data:
+                compressed = dict()
+                try:
+                    compressed["fs"] = frnd["friend_since"]
+                except:
+                    pass
+                try:
+                    compressed["id"] = frnd["steamid"]
+                except:
+                    pass
+                frnds += [compressed]
+            player_friends[ordered_ids[i]] = compressed
+        except Exception as e:
+            #print("{} {}".format(type(e).__name__, e))
+            player_friends[ordered_ids[i]] = dict()
     return player_friends
     
     
-def fill_player_games(player_ids, player_games = dict(), api_key = "EEA36ABA0BB06BBFC90ECF96B503007E"):
+def fill_player_games(player_ids, player_games = dict(), api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
     urls = []
     ordered_ids = sorted(player_ids)
     for i in range(len(ordered_ids)):
@@ -97,7 +152,7 @@ def fill_player_games(player_ids, player_games = dict(), api_key = "EEA36ABA0BB0
     for i in range(len(ordered_ids)):
         try:
             data = json.loads(str(responses[i]).strip("b").strip("'"))["response"]
-            if len(data) > len(player_games[ordered_ids[i]]):
+            if ordered_ids[i] not in player_games or len(data) > len(player_games[ordered_ids[i]]):
                 player_games[ordered_ids[i]] = data
         except:
             player_games[odrered_ids[i]] = []
@@ -123,10 +178,13 @@ def fill_player_achievements(player_ids, player_games, player_achievements = dic
         else:
             player_achievements[player_id] = dict()
             for game in player_games[player_id]['games']:
-                gameid = game["appid"]
-                data =  json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\").replace("\\\\\"","\\\""))
-                if len(data) > 0:
-                     player_achievements[player_id][gameid] = data
+                try:
+                    gameid = game["appid"]
+                    data =  json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\").replace("\\\\\"","\\\""))
+                    if len(data) > 0:
+                         player_achievements[player_id][gameid] = data
+                except:
+                    pass
                 i+=1
                 
     return player_achievements
@@ -140,8 +198,9 @@ def fill_global_game_stats(game_ids, global_game_stats = dict()):
         try:
             global_game_stats[game_ids[i]] = json.loads(str(responses[i]).strip("b").strip("'").replace("\\","\\\\").replace("\\\\\"","\\\""))["achievementpercentages"]
         except Exception as e :
-            print(e)
-            print(str(responses[i]).strip("b").strip("'"))
+            #print(e)
+            #print(str(responses[i]).strip("b").strip("'"))
+            global_game_stats[game_ids[i]] = dict()
             pass
     return global_game_stats
 
