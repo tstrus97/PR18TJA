@@ -134,14 +134,14 @@ def fill_player_friends(player_ids, player_friends = dict(), api_key = "5F5DD2FA
                 except:
                     pass
                 frnds += [compressed]
-            player_friends[ordered_ids[i]] = compressed
+            player_friends[ordered_ids[i]] = frnds
         except Exception as e:
             #print("{} {}".format(type(e).__name__, e))
             player_friends[ordered_ids[i]] = dict()
     return player_friends
     
     
-def fill_player_games(player_ids, player_games = dict(), api_key = "5F5DD2FA8A6C8646FCFE265C07BB90E5"):
+def fill_player_games(player_ids, player_games = dict(), api_key = "651624DDEE8476FED7FCA5264702440A"):
     urls = []
     ordered_ids = sorted(player_ids)
     for i in range(len(ordered_ids)):
