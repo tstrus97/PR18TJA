@@ -31,7 +31,6 @@ TRENUTNA VPRAŠANJA:
  ISKANJE OSAMELCEV:
   - Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
 
-<<<<<<< HEAD
  # TU JE POROČILO
 
 # Steam web api data mining
@@ -45,16 +44,30 @@ Kot vidimo v spodnjem grafu, nimamo toliko problema, da bi imeli preveč slovens
 
 ## Kupljene igre uporabnikov  (samo za naše prijatelje)
 V naslednjih grafim bomo naredili analizo knjižnjice iger, žal smo lahko dobili podatke za samo 600 uporabnikov, ki so bili naši prijatelji, tako da se podatki zelo prilagajajo tudi igram, ki jih imamo mi sami.
-=======
- --- TU JE POROČILO ---
-![Alt text](assets/country.png?raw=true)
-![Alt text](assets/nameDistribution.png?raw=true)
->>>>>>> b31e20648f605f224dff233952e233994ef06429
 ![Alt text](assets/boughtGames.png?raw=true)
 ![Alt text](assets/mostPlayed.png?raw=true )
 
-
+## Podatki iger
+Tukaj poskušam najti najtežje in najlažje igre. Za vsak dosežek vsake igre vemo koliko procentov ljudi so ga naredili. Torej najtežja igra, sem predpostavil da je tista, ki ima povprečno najmanjše procente dokončanje dosežkov po igralcih.
 ![Alt text](assets/hardestGames.png?raw=true )
 ![Alt text](assets/easyAchievents.png?raw=true )
+Pri najlažjih igrah opazimo, da imajo zelo veliko dosežkov. Ampak pri večina teh iger, je mogoče igro končati v približno uri in dobiti vse dosežke... le zakaj
  
+## Podobnost med vzdevkom in imenom uporabnika
+Tukaj bomo po Jaro indeksu razdalje pogledali razliko med vzdevkom in imenom uporabnika. Tukaj vidimo porazdelitev
 ![Alt text](assets/nameDistribution.png?raw=true)
+Vidimo, da ima od vradnost indeksa od 0.7 do 1 samo 10% uporabnikobv. Ti imajo izpeljanke imen, kot so nasledni:
+VZDEVEK, IME
+'Thorvald', 'Thorvald ter Meer'
+'Berra', 'Bernardo'
+'Robingg', 'Robin B'
+'KentKennedy #Akk!', 'Kent Kennedy'
+'Bostjan88', 'Bostjan'
+'AnzeDragar', 'Anze Dragar'
+'Nikkoff', 'Nikko'
+'ninos10', 'nino'
+'NinaFin', 'Nina Fininis'
+'Justin500 DE', 'Justin'
+'JacobofGames', 'Jacob'
+'Robertbtw', 'Robert'
+'xXxBen_DoverxXx', 'Ben Dover'
