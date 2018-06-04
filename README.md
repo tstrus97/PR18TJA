@@ -75,4 +75,4 @@ Najprej nas zanima, je razlika med uporabniki z privatnim in odprtim profilom?
 Vidimo, da je malenkostna razlike med procenti banov privatnih in javnih profilov, še posebaj pri VAC banih. Torej mit, da če imaš privatni profil, si heker imalo nekaj resnice.  
 Kakšna pa je razlika med banim v različnih državah? 
 ![Alt text](assets/bans_country.png?raw=true)  
-Tukaj je precejšna razlika med Romunim in Rusim. Med Romuni in Slovenci je kar 15% razlika v številu banov uporabnikov.
+Tukaj je precejšna razlika med Romuni in Rusi. Med Romuni in Slovenci je kar 15% razlika v številu banov uporabnikov.
