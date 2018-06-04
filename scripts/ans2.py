@@ -1,26 +1,26 @@
 def player_was_banned(ban_data):
-    if ban_data["CommunityBanned"] == True:
+    if ban_data["cb"] == True:
         return True
-    if ban_data["VACBanned"] == True:
+    if ban_data["vacb"] == True:
         return True
-    if ban_data["NumberOfVACBans"] > 0:
+    if ban_data["novacb"] > 0:
         return True
-    if ban_data["NumberOfGameBans"] > 0:
+    if ban_data["nogb"] > 0:
         return True
-    if ban_data["EconomyBan"] != "none":
+    if ban_data["eb"] != "none":
         return True
 
-def get_ban_visibility_data(player_summaries, player_bans):
+def get_community_ban_visibility_data(player_summaries, player_bans):
     bans_and_profiles = [0]*4 #p!b, pb, !p!b, !pb
     for playerid, data in player_summaries.items():
         try: 
-            if data["communityvisibilitystate"] == 3:
-                if player_was_banned(player_bans[playerid]):
+            if data["cvs"] == 3:
+                if player_bans[playerid]["cb"] == True:
                     bans_and_profiles[1]+=1
                 else:
                     bans_and_profiles[0]+=1
             else:
-                if player_was_banned(player_bans[playerid]):
+                if player_bans[playerid]["cb"] == True:
                     bans_and_profiles[3]+=1
                 else:
                     bans_and_profiles[2]+=1
@@ -28,6 +28,42 @@ def get_ban_visibility_data(player_summaries, player_bans):
             pass
     return ((bans_and_profiles[0], bans_and_profiles[2]),(bans_and_profiles[1], bans_and_profiles[3]))
     
+def get_vac_ban_visibility_data(player_summaries, player_bans):
+    bans_and_profiles = [0]*4 #p!b, pb, !p!b, !pb
+    for playerid, data in player_summaries.items():
+        try: 
+            if data["cvs"] == 3:
+                if player_bans[playerid]["vacb"] == True:
+                    bans_and_profiles[1]+=1
+                else:
+                    bans_and_profiles[0]+=1
+            else:
+                if player_bans[playerid]["vacb"] == True:
+                    bans_and_profiles[3]+=1
+                else:
+                    bans_and_profiles[2]+=1
+        except:
+            pass
+    return ((bans_and_profiles[0], bans_and_profiles[2]),(bans_and_profiles[1], bans_and_profiles[3]))
+
+def get_economy_ban_visibility_data(player_summaries, player_bans):
+    bans_and_profiles = [0]*4 #p!b, pb, !p!b, !pb
+    for playerid, data in player_summaries.items():
+        try: 
+            if data["cvs"] == 3:
+                if player_bans[playerid]["eb"] != "none":
+                    bans_and_profiles[1]+=1
+                else:
+                    bans_and_profiles[0]+=1
+            else:
+                if player_bans[playerid]["eb"] != "none":
+                    bans_and_profiles[3]+=1
+                else:
+                    bans_and_profiles[2]+=1
+        except:
+            pass
+    return ((bans_and_profiles[0], bans_and_profiles[2]),(bans_and_profiles[1], bans_and_profiles[3]))
+
 def ban_visibility_plot(good_in, bad_in):
     import numpy as np
     import matplotlib.pyplot as plt
