@@ -31,8 +31,18 @@ TRENUTNA VPRAŠANJA:
  ISKANJE OSAMELCEV:
   - Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
 
- --- TU JE POROČILO ---
+ # TU JE POROČILO
+
+# Steam web api data mining
+## Data
+* 100k Users (name, username, country, game library, playtime, bans)
+* 61k Games (name, achievements, achievements completion)
+
+## Uporabniki razdeljeni po državah
+Uporabniki so kar dobro porazdeljeni po državah, tako da podatki so kar dobro globalno porazdeljeni.
 ![Alt text](assets/country.png?raw=true)
+
+
 ![Alt text](assets/nameDistribution.png?raw=true)
 ![Alt text](assets/boughtGames.png?raw=true)
 ![Alt text](assets/mostPlayed.png?raw=true )
