@@ -58,16 +58,28 @@ Tukaj bomo po Jaro indeksu razdalje pogledali razliko med vzdevkom in imenom upo
 ![Alt text](assets/nameDistribution.png?raw=true)
 Vidimo, da ima od vradnost indeksa od 0.7 do 1 samo 10% uporabnikobv. Ti imajo izpeljanke imen, kot so nasledni:
 VZDEVEK, IME
-'Thorvald', 'Thorvald ter Meer'
-'Berra', 'Bernardo'
-'Robingg', 'Robin B'
-'KentKennedy #Akk!', 'Kent Kennedy'
-'Bostjan88', 'Bostjan'
-'AnzeDragar', 'Anze Dragar'
-'Nikkoff', 'Nikko'
-'ninos10', 'nino'
-'NinaFin', 'Nina Fininis'
-'Justin500 DE', 'Justin'
-'JacobofGames', 'Jacob'
-'Robertbtw', 'Robert'
-'xXxBen_DoverxXx', 'Ben Dover'
+* 'Thorvald', 'Thorvald ter Meer'
+* 'Berra', 'Bernardo'
+* 'Robingg', 'Robin B'
+* 'KentKennedy #Akk!', 'Kent Kennedy'
+* 'Bostjan88', 'Bostjan'
+* 'AnzeDragar', 'Anze Dragar'
+* 'Nikkoff', 'Nikko'
+* 'ninos10', 'nino'
+* 'NinaFin', 'Nina Fininis'
+* 'Justin500 DE', 'Justin'
+* 'JacobofGames', 'Jacob'
+* 'Robertbtw', 'Robert'
+* 'xXxBen_DoverxXx', 'Ben Dover'
+
+## Analiza prepovedi igranja (Ban)
+Najprej nas zanima, je razlika med uporabniki z privatnim in odprtim profilom?
+### VAC ban
+![Alt text](assets/vac_bans_vis.png?raw=true)
+### Economy ban
+![Alt text](assets/economy_bans_vis.png?raw=true)
+### Game ban
+![Alt text](assets/bame_bans_vis.png?raw=true)
+
+Vidimo, da je malenkostna razlike med procenti banov privatnih in javnih profilov, še posebaj pri VAC banih. Torej mit, da če imaš privatni profil, si heker imalo nekaj resnice. Kakšna pa je razlika med banim v različnih državah? 
+![Alt text](assets/bans_country.png?raw=true)
