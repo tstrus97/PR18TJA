@@ -58,8 +58,9 @@ VZDEVEK, IME
 * 'Justin500 DE', 'Justin'
 * 'JacobofGames', 'Jacob'
 * 'Robertbtw', 'Robert'
-* 'xXxBen_DoverxXx', 'Ben Dover'
+* 'xXxBen_DoverxXx', 'Ben Dover'  
 
+Skoraj 35% uporabnikov ima ime čisto drugačno kot vzdevek, torej jih na internetu nočejo povezovati. Za ostale uporabnike pa ne moramo točno vedeti ali so izpeljanke ali ne, ker nam to indeks ne omogoča.  
 ## Analiza prepovedi igranja (Ban)
 Najprej nas zanima, je razlika med uporabniki z privatnim in odprtim profilom?
 ### VAC ban
@@ -69,5 +70,7 @@ Najprej nas zanima, je razlika med uporabniki z privatnim in odprtim profilom?
 ### Game ban
 ![Alt text](assets/bame_bans_vis.png?raw=true)
 
-Vidimo, da je malenkostna razlike med procenti banov privatnih in javnih profilov, še posebaj pri VAC banih. Torej mit, da če imaš privatni profil, si heker imalo nekaj resnice. Kakšna pa je razlika med banim v različnih državah? 
-![Alt text](assets/bans_country.png?raw=true)
+Vidimo, da je malenkostna razlike med procenti banov privatnih in javnih profilov, še posebaj pri VAC banih. Torej mit, da če imaš privatni profil, si heker imalo nekaj resnice.  
+Kakšna pa je razlika med banim v različnih državah? 
+![Alt text](assets/bans_country.png?raw=true)  
+Tukaj je precejšna razlika med Romunim in Rusim. Med Romuni in Slovenci je kar 15% razlika v številu banov uporabnikov.
