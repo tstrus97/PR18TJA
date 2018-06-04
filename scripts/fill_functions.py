@@ -141,7 +141,7 @@ def fill_player_friends(player_ids, player_friends = dict(), api_key = "5F5DD2FA
     return player_friends
     
     
-def fill_player_games(player_ids, player_games = dict(), api_key = "651624DDEE8476FED7FCA5264702440A"):
+def fill_player_games(player_ids, player_games = dict(), api_key = "4D3016AB5CBE37D34DFB9E7019EEC2B3"):
     urls = []
     ordered_ids = sorted(player_ids)
     for i in range(len(ordered_ids)):
