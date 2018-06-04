@@ -39,13 +39,16 @@ TRENUTNA VPRAŠANJA:
 * 61k Games (name, achievements, achievements completion)
 
 ## Uporabniki razdeljeni po državah
-Uporabniki so kar dobro porazdeljeni po državah, tako da podatki so kar dobro globalno porazdeljeni.
+Kot vidimo v spodnjem grafu, nimamo toliko problema, da bi imeli preveč slovenskih uporabnikov, ampak jih imamo porazdeljenih po celem svetu.
 ![Alt text](assets/country.png?raw=true)
 
-
-![Alt text](assets/nameDistribution.png?raw=true)
+## Kupljene igre uporabnikov  (samo za naše prijatelje)
+V naslednjih grafim bomo naredili analizo knjižnjice iger, žal smo lahko dobili podatke za samo 600 uporabnikov, ki so bili naši prijatelji, tako da se podatki zelo prilagajajo tudi igram, ki jih imamo mi sami.
 ![Alt text](assets/boughtGames.png?raw=true)
 ![Alt text](assets/mostPlayed.png?raw=true )
+
+
 ![Alt text](assets/hardestGames.png?raw=true )
 ![Alt text](assets/easyAchievents.png?raw=true )
  
+![Alt text](assets/nameDistribution.png?raw=true)
