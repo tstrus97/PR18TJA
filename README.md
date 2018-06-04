@@ -26,16 +26,24 @@ Tukaj poskušam najti najtežje in najlažje igre. Za vsak dosežek vsake igre v
 Tukaj vidimo, da so med najlažjimi igrami same take, ki imajo zelo veliko dosežkov. Poglej koliko je največ teh dosežkov v igri.
 ![Alt text](assets/numOfAchievemnts.png?raw=true )
 Če pogledamo te igre bližje, vidimo, da se jih večina konča v manj kot uri. Poglejmo kakšne imajo dejansko dosežke:
+
+
 Dosežki igre z največ dosežki:
 ![Alt text](assets/ach2.png?raw=true )
+
+
 Dosežki igre z drugim največjim dosežkim:
 ![Alt text](assets/ach1.png?raw=true )
+
+
 Vidimo, da  sta to igre, kjer lahko "farmamo" dosežke, ker nekateri uporabniki to radi počnejo. Ampak niso vse igre take, četrta najboljša igra ima dejansko veliko dosežkov, njen čas dokončanja pa je kar 400 urni.
 ![Alt text](assets/ach3.png?raw=true )
 
 ## Podobnost med vzdevkom in imenom uporabnika
 Tukaj bomo po Jaro indeksu razdalje pogledali razliko med vzdevkom in imenom uporabnika. Tukaj vidimo porazdelitev
 ![Alt text](assets/nameDistribution.png?raw=true)
+
+
 Vidimo, da ima od vradnost indeksa od 0.7 do 1 samo 10% uporabnikobv. Ti imajo izpeljanke imen, kot so nasledni:
 VZDEVEK, IME
 * 'Thorvald', 'Thorvald ter Meer'
