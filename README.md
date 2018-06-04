@@ -30,5 +30,12 @@ TRENUTNA VPRAŠANJA:
 - [ ] Ali lahko ugotovimo, kakšno igro moramo izdelati za komercialni uspeh? Najbrž lahko preko dosežkov ugotovimo, ali je igra pretežka ali prelahka.
  ISKANJE OSAMELCEV:
   - Hipoteza: igralci glede na dosežke se delijo na tiste, ki jih ne zanimajo, tiste ki jih nekaj dobijo in "achievement hunterje",   tu bomo poskušali najti te igralce.
-![Alt text](assets/hardestGames.png?raw=true "Title")
-  
+
+ --- TU JE POROČILO ---
+![Alt text](assets/country.png?raw=true)
+![Alt text](assets/nameDistribution.png?raw=true)
+![Alt text](assets/boughtGames.png?raw=true)
+![Alt text](assets/mostPlayed.png?raw=true )
+![Alt text](assets/hardestGames.png?raw=true )
+![Alt text](assets/easyAchievents.png?raw=true )
+ 
