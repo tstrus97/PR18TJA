@@ -63,8 +63,6 @@ VZDEVEK, IME
 Skoraj 35% uporabnikov ima ime čisto drugačno kot vzdevek, torej jih na internetu nočejo povezovati. Za ostale uporabnike pa ne moramo točno vedeti ali so izpeljanke ali ne, ker nam to indeks ne omogoča.  
 ## Analiza prepovedi igranja (Ban)
 Najprej nas zanima, je razlika med uporabniki z privatnim in odprtim profilom?
-### Economy ban
-![Alt text](assets/economy_bans_vis.png?raw=true)
 ### VAC ban
 ![Alt text](assets/vac_bans_vis.png?raw=true)
 ### Economy ban
