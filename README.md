@@ -24,7 +24,7 @@ Tukaj poskušam najti najtežje in najlažje igre. Za vsak dosežek vsake igre v
 ![Alt text](assets/hardestGames.png?raw=true )
 ![Alt text](assets/easyAchievents.png?raw=true )
 Tukaj vidimo, da so med najlažjimi igrami same take, ki imajo zelo veliko dosežkov. Poglej koliko je največ teh dosežkov v igri.
-![Alt text](assets/numOfAchievemnts.png?raw=true )
+![Alt text](assets/numOfAchievements.png?raw=true )
 Če pogledamo te igre bližje, vidimo, da se jih večina konča v manj kot uri. Poglejmo kakšne imajo dejansko dosežke:
 
 
